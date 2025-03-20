@@ -4,3 +4,4 @@ mistralai
 PyPDF2
 requests
 Flask-SQLAlchemy
+mysql-connector-python
