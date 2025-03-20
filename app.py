@@ -8,7 +8,8 @@ import os
 MultiverzAI = Flask(__name__)
 
 # MySQL Configuration 
-MultiverzAI.config["SQLALCHEMY_DATABASE_URI"] = "mysql+mysqlconnector://root:NewSecurePassword2024@127.0.0.1:3306/Multiverz_AI_Chat"
+MultiverzAI.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+
 MultiverzAI.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 # Initialize the Database
