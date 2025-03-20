@@ -8,7 +8,8 @@ import os
 MultiverzAI = Flask(__name__)
 
 # MySQL Configuration 
-MultiverzAI.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+MultiverzAI.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+
 
 MultiverzAI.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
