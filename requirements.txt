@@ -3,3 +3,4 @@ gunicorn
 Mistral
 PyPDF2
 requests
+Flask-SQLAlchemy
