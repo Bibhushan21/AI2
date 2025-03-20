@@ -41,7 +41,7 @@ def extract_prompt_from_pdf(pdf_path):
         return f"Error reading system prompt: {str(e)}"
 
 # Load system prompt from the PDF
-pdf_path = "Brainstromming/Brainstorming Agent - System Prompt.pdf"  
+pdf_path = "Brainstorming Agent - System Prompt.pdf"  
 system_prompt = extract_prompt_from_pdf(pdf_path)
 
 if not system_prompt or "Error" in system_prompt:
