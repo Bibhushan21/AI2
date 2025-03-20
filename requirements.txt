@@ -1,6 +1,6 @@
 Flask
-Flask-SQLAlchemy
-mysql-connector-python
 gunicorn
+Mistral
 PyPDF2
-ollama
+requests
+os
