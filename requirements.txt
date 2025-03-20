@@ -1,0 +1,6 @@
+Flask
+Flask-SQLAlchemy
+mysql-connector-python
+gunicorn
+PyPDF2
+ollama
