@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Multiverz AI ChatBot</h1>
+
+        <!-- User Name Input -->
+        <div id="user-name-container">
+            <input type="text" id="user-name" placeholder="Enter your name..." autofocus>
+            <button onclick="saveUserName()">Start Chat</button>
+        </div>
+
+        <!-- Chat Section (Hidden Until Name is Entered) -->
+        <div id="chat-section" style="display: none;">
+            <div id="chat-box"></div>
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+            <div id="loading" class="loading">🤖 Generating response...</div>
+        </div>
+    </div>
+
+    <script>
+        let userName = "";
+
+        function saveUserName() {
+            userName = document.getElementById("user-name").value.trim();
+            if (!userName) {
+                alert("Please enter your name to start chatting.");
+                return;
+            }
+            document.getElementById("user-name-container").style.display = "none";
+            document.getElementById("chat-section").style.display = "block";
+        }
+
+        function sendMessage() {
+            let userInput = document.getElementById("user-input").value.trim();
+            if (!userInput) return;
+
+            let chatBox = document.getElementById("chat-box");
+            let loadingIndicator = document.getElementById("loading");
+
+            let userMessage = `<div class='user-message'><strong>${userName}:</strong> ${userInput}</div>`;
+            chatBox.innerHTML += userMessage;
+            document.getElementById("user-input").value = "";
+
+            // Show loading message
+            loadingIndicator.style.display = "block";
+
+            fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user_name: userName, message: userInput })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let formattedResponse = formatAIResponse(data.ai_response);
+                let aiMessage = `
+                    <div class='ai-message'>
+                        <div class="ai-header"><strong>🤖 AI:</strong></div>
+                        <div class="ai-content">${formattedResponse}</div>
+                    </div>`;
+                chatBox.innerHTML += aiMessage;
+
+                // Hide loading message
+                loadingIndicator.style.display = "none";
+
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                loadingIndicator.style.display = "none"; // Hide loading on error
+            });
+        }
+
+        function formatAIResponse(response) {
+            let formatted = response.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>").replace(/\n/g, "<br>");
+            return formatted;
+        }
+    </script>
+</body>
+</html>
