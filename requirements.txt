@@ -3,4 +3,3 @@ gunicorn
 Mistral
 PyPDF2
 requests
-os
