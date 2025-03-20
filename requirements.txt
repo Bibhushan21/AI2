@@ -1,6 +1,6 @@
 Flask
 gunicorn
-Mistral
+mistralai
 PyPDF2
 requests
 Flask-SQLAlchemy
